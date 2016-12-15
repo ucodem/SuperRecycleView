@@ -24,7 +24,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * GitHub: https://github.com/supercwn
  */
 public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
-    private static final String TAG = "SuperBaseAdapter";
+    protected final String TAG = this.getClass().getSimpleName();
 
     public static class VIEW_TYPE {
         public static final int HEADER = 0x0010;
@@ -34,7 +34,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
     /**
      * Base config
      */
-    public List<T> mData;
+    protected List<T> mData;
     private Context mContext;
     private LayoutInflater mInflater;
 
@@ -155,6 +155,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     /**
      * init the baseViewHolder to register mOnItemClickListener and mOnItemLongClickListener
+     *
      * @param holder
      */
     protected final void initItemClickListener(final BaseViewHolder holder) {
@@ -162,7 +163,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final int position = holder.getAdapterPosition() - getHeaderViewCount()- 1;
+                    final int position = holder.getAdapterPosition() - getHeaderViewCount() - 1;
                     mOnItemClickListener.onItemClick(view, mData.get(position), position);
                 }
             });
@@ -376,6 +377,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public interface OnItemClickListener<T> {
         void onItemClick(View view, T item, int position);
     }
+
     public interface OnItemLongClickListener<T> {
         void onItemLongClick(View view, T item, int position);
     }
@@ -397,12 +399,14 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public interface SpanSizeLookup {
         int getSpanSize(GridLayoutManager gridLayoutManager, int position);
     }
+
     /**
      * @param spanSizeLookup instance to be used to query number of spans occupied by each item
      */
     public void setSpanSizeLookup(SpanSizeLookup spanSizeLookup) {
         this.mSpanSizeLookup = spanSizeLookup;
     }
+
     @Override
     public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -412,7 +416,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    int type = getItemViewType(position-1);
+                    int type = getItemViewType(position - 1);
                     if (mSpanSizeLookup == null)
                         return (type == VIEW_TYPE.HEADER || type == VIEW_TYPE.FOOTER) ? gridManager.getSpanCount() : 1;
                     else
