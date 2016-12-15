@@ -19,6 +19,7 @@ import android.view.ViewParent;
  * GitHub: https://github.com/supercwn
  */
 public class SuperRecyclerView extends RecyclerView {
+
     private boolean isLoadingData = false;
     private boolean isNoMore = false;
     private int mRefreshProgressStyle = ProgressStyle.SysProgress;
