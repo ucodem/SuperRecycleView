@@ -24,6 +24,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * GitHub: https://github.com/supercwn
  */
 public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+
     protected final String TAG = this.getClass().getSimpleName();
 
     public static class VIEW_TYPE {
