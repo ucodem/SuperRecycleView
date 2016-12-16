@@ -235,6 +235,53 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
     }
 
     /**
+     * 更新数据源
+     */
+    public void updateData(List<T> list) {
+        mData.clear();
+        if (list != null && list.size() > 0) {
+            mData.addAll(list);
+        }
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * 删除position的数据
+     *
+     * @param position
+     */
+    public void deleteItem(int position) {
+        if (mData != null && mData.size() > position) {
+            mData.remove(position);
+            notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 添加数据源
+     */
+    public void addData(List<T> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        if (mData != null && mData.size() > 0) {
+            mData.addAll(mData.size(), list);
+        } else {
+            mData.addAll(list);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addfirst(T t) {
+        if (t == null) {
+            return;
+        }
+        mData.add(0, t);
+        notifyDataSetChanged();
+    }
+
+    /**
      * Register a callback to be invoked when childView in this AdapterView has
      * been longClicked and held
      * {@link OnRecyclerViewItemChildLongClickListener}
