@@ -196,6 +196,12 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
         return null;
     }
 
+
+    public int getDataCount() {
+        return mData.size();
+    }
+
+
     @Override
     public int getItemCount() {
         return mData.size() + getHeaderViewCount() + getFooterViewCount();
