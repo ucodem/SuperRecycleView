@@ -189,7 +189,7 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     protected abstract int getItemViewLayoutId(int position, T item);
 
-    protected T getItem(int position) {
+    public T getItem(int position) {
         if (position >= 0 && position < mData.size()) {
             mData.get(position);
         }
