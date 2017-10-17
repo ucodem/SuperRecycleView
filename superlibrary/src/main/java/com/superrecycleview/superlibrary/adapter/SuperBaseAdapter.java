@@ -165,7 +165,9 @@ public abstract class SuperBaseAdapter<T> extends RecyclerView.Adapter<BaseViewH
                 @Override
                 public void onClick(View view) {
                     final int position = holder.getAdapterPosition() - getHeaderViewCount() - 1;
-                    mOnItemClickListener.onItemClick(view, mData.get(position), position);
+                    if (position > -1 && position < mData.size()) {
+                        mOnItemClickListener.onItemClick(view, mData.get(position), position);
+                    }
                 }
             });
         }
